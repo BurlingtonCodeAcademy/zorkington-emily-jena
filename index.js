@@ -1,3 +1,4 @@
+//Boiler plate code 
 const readline = require('readline');
 const readlineInterface = readline.createInterface(process.stdin, process.stdout);
 
@@ -7,8 +8,10 @@ function ask(questionText) {
   });
 }
 
-// remember the StateMachine lecture
-// https://bootcamp.burlingtoncodeacademy.com/lessons/cs/state-machines
+//Functions
+
+
+//State machine controls which room you can go into 
 let states = {
   'roomOne': { canChangeTo: [ 'roomTwo' ] },
   'roomTwo': { canChangeTo: [ 'roomThree' ] },
@@ -27,13 +30,27 @@ function enterState(newState) {
 }
 
 start();
-
+//room class property allowable action
+let allowableActions ={
+"move north": ["move north", "move n"] // Access through allowableAction["move north"]
+}
+//Function that begins the game
 async function start() {
   const welcomeMessage = `182 Main St.
 You are standing on Main Street between Church and South Winooski.
 There is a door here. A keypad sits on the handle.
 On the door is a handwritten sign.`;
-  let answer = await ask(welcomeMessage);
-  console.log('Now write your code to make this work!');
+console.log(welcomeMessage);
+
+//Waits for user input, if the input is not "Exit", awaits next input. 
+  let answer = await ask('>_ ');
+  while(answer !== 'exit') {
+    answer = await ask('>_ ');
+    }
+
+
+ // if(allowableActions["move north"].includes(userInput)); // This checks the array matching the array. 
+
+  //Exits the game
   process.exit();
 }
