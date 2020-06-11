@@ -47,7 +47,7 @@ let classroom = new Room("classroom", "Welcome to the classroom. Say hello to Bo
 
 let pizzaShop = new Room("pizza shop", "This is Mr. Mikes. Feel free to buy a slice!", ["pizza"]);
 
-let muddys = new Room("muddys'", "Hello! Would you like some tea for Bob? I know how he gets without it!", ["tea"]);
+let muddys = new Room("muddys", "Hello! Would you like some tea for Bob? I know how he gets without it!", ["tea"]);
 
 //This function checks whether you can move from one room to another. If you can prints the description of the room
 
@@ -62,6 +62,7 @@ lookupTable = {
 
 //State machine controls which room you can go into 
 transitions = {
+  'classroom': {canChangeTo: ['foyer']},
   'main street': { canChangeTo: ['foyer', 'pizza shop', 'muddys'] },
   'foyer': { canChangeTo: ['classroom', 'main street'] },
   'pizza shop': { canChangeTo: ['main street'] },
