@@ -43,26 +43,31 @@ function start(){
 
 //Function that allows various inputs 
 async function play() {
-  let input = await ask('>_ ');
+  let input = "";
 
+//While the input is not exit, the game awaits input at every turn 
+  while(input !=="exit"){
+    input= await ask('>_ ');
+    
+//Various actions that the player can take 
     if (input.includes('examine') || input.includes('read')|| input.includes("read sign")) {
       console.log(signMessage);
-      return play();
+
 
     } else if (input.includes('take') || input.includes('take note')) {
       console.log(`That would be selfish. How will other students find their way?`)
-      return play();
+  
 
-    } if(input.includes('exit')||input.includes("quit")){
+    } else if(input.includes('exit')||input.includes("quit")){
       console.log("Thank you for playing! Good bye!");
       process.exit();
 
     } else {
       console.log('Sorry. I don\'t how to ' + input)
-      return play();
+   
     }
   }
-
+}
 
 //The functions to begin the game. 
 start();
