@@ -42,8 +42,6 @@ let player ={
     }
   }
   } 
-
-
   
 
     let lookupTable
@@ -117,21 +115,20 @@ let player ={
         if (input.includes('examine') || input.includes('read') || input.includes("read sign")) {
           console.log(sign);
           
-        }else if (input.includes('enter code') || input.includes("key in") && currentRoom===mainStreet) {
+        }else if (input.includes("i")||input.includes("inventory")|| input.includes("take inventory")){
+          console.log("You are carrying: "+player.inventory)
+        }
+        
+        else if (input.includes('enter code') || input.includes("key in") && currentRoom===mainStreet) {
           door.unlock();
 
         } else if(input.includes('take paper')|| input.includes('take seven days')&&currentRoom===foyer){
           player.inventory.push("paper");
           console.log ("You pick up the paper and leaf through it looking for comics and ignoring the articles, just like everybody else.");
-          console.log (player.inventory);
           
         }else if (input.includes('take') || input.includes('take sign')&& currentRoom===mainStreet) {
           console.log(`That would be selfish. How will other students find their way?`)
 
-
-        } else if (input.includes('exit') || input.includes("quit")) {
-          console.log("Thank you for playing! Good bye!");
-          process.exit();
 
         } else if (input.includes("go to muddys") || input.includes("muddys")) {
           console.log(currentRoom.changeRoom('muddys'))
