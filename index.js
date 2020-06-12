@@ -70,16 +70,12 @@ transitions = {
 
 currentRoom = mainStreet;
 
-//Tests of movement. 
-// console.log(currentRoom.changeRoom('muddys'))
-// console.log(currentRoom)
-// console.log(currentRoom.changeRoom('main street'))
-// console.log(currentRoom)
-// console.log(currentRoom.changeRoom('foyer'))
-// console.log(currentRoom.changeRoom('classroom'))
-// console.log(currentRoom.changeRoom('muddys'))
 
-
+//Function to start game
+function start(){
+  console.log (welcomeMessage);
+  play();
+}
 
 //Function that allows various inputs 
 async function play() {
@@ -102,8 +98,21 @@ async function play() {
       console.log("Thank you for playing! Good bye!");
       process.exit();
 
-    } else {
-      console.log('Sorry. I don\'t how to ' + input)
+    }else if (input.includes("go to muddys")||input.includes("muddys")){
+      console.log(currentRoom.changeRoom('muddys'))
+    }
+    //Come back to foyer
+    else if (input.includes("go to foyer")||input.includes("foyer")){
+      console.log(currentRoom.changeRoom('foyer'))
+    }else if (input.includes("go to classroom")||input.includes("classroom")){
+      console.log(currentRoom.changeRoom('classroom'))
+    } else if (input.includes("go to main street")||input.includes("main street")){
+      console.log(currentRoom.changeRoom('main street'))
+    }else if (input.includes("go to pizza shop")||input.includes("mr mikes")){
+      console.log(currentRoom.changeRoom('pizza shop'))
+    }
+    else {
+      console.log('Sorry. I don\'t how to ' + input + " Try again. ")
 
     }
   }
