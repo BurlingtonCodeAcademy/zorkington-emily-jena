@@ -75,13 +75,13 @@ currentRoom = mainStreet;
 currentRoom.changeRoom('muddys')
 console.log(currentRoom)
 currentRoom.changeRoom('main street')
-console.log(currentRoom)
+//console.log(currentRoom)
 console.log(currentRoom.changeRoom('foyer'))
-console.log(currentRoom)
+//console.log(currentRoom)
 console.log(currentRoom.changeRoom('classroom'))
-console.log(currentRoom)
+//console.log(currentRoom)
 console.log(currentRoom.changeRoom('muddys'))
-console.log(currentRoom)
+//console.log(currentRoom)
 
 
 
