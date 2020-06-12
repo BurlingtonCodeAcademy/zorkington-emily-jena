@@ -117,6 +117,12 @@ function start() {
   play();
 }
 
+//Function to sanitize a word
+function sanitize(word){
+ return(word.toLowerCase().trim())
+ 
+}
+
 //Function that allows various inputs 
 async function play() {
   let input = "";
@@ -130,7 +136,7 @@ async function play() {
     }
   //Allows player to input
     input = await ask('>_ ');
-
+    input= sanitize(input);
     //Various actions that the player can take 
     if (input.includes('examine') || input.includes('read') || input.includes("read sign")) {
       console.log(sign);
