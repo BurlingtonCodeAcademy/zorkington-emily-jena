@@ -29,7 +29,6 @@ class Room {
   }
 
   changeRoom(nextState) {
-    //console.log(currentRoom + nextState)
     if (transitions[currentRoom.name].canChangeTo.includes(nextState)) {
       currentRoom = lookupTable[nextState];
      return currentRoom.description;
@@ -71,13 +70,15 @@ transitions = {
 
 currentRoom = mainStreet;
 
-currentRoom.changeRoom('muddys')
-console.log(currentRoom)
-currentRoom.changeRoom('main street')
-console.log(currentRoom)
-console.log(currentRoom.changeRoom('foyer'))
-console.log(currentRoom.changeRoom('classroom'))
-console.log(currentRoom.changeRoom('muddys'))
+//Tests of movement. 
+// console.log(currentRoom.changeRoom('muddys'))
+// console.log(currentRoom)
+// console.log(currentRoom.changeRoom('main street'))
+// console.log(currentRoom)
+// console.log(currentRoom.changeRoom('foyer'))
+// console.log(currentRoom.changeRoom('classroom'))
+// console.log(currentRoom.changeRoom('muddys'))
+
 
 
 //Function that allows various inputs 
@@ -109,8 +110,8 @@ async function play() {
 }
 
 //These functions are called to begin the game. 
-//start();
-//play();
+start();
+play();
 
 
 
