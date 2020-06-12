@@ -22,15 +22,16 @@ let lookupTable
 
 //Rooms class used to create the game rooms
 class Room {
-  constructor(name, description, inventory) {
+  constructor(name, description, inventory, transition) {
     this.name = name;
     this.description = description;
     this.inventory = inventory
+    this.transition = transition
   }
 
   changeRoom(nextState) {
     //console.log(currentRoom + nextState)
-    if (transitions[currentRoom.name].canChangeTo.includes(nextState)) {
+    if (currentRoom.transition.includes(nextState)) {
       currentRoom = lookupTable[nextState];
      return currentRoom.description;
     } else {
@@ -39,15 +40,15 @@ class Room {
   }
 }
   // Game Rooms
-let mainStreet = new Room("main street", "182 Main street. You are standing on Main Street between Church and South Winooski. \n There is a door here. A keypad sits on the handle. On the door is a handwritten sign.", ["sign"]);
+let mainStreet = new Room("main street", "182 Main street. You are standing on Main Street between Church and South Winooski. \n There is a door here. A keypad sits on the handle. On the door is a handwritten sign.", ["sign"], ['foyer', 'pizza shop', 'muddys']);
 
-let foyer = new Room("foyer", "You are in a foyer. Or maybe it's an antechamber. Or a vestibule. Or an entryway. Or an atrium. Or a narthex.But let's forget all that fancy flatlander vocabulary, and just call it a foyer. In Vermont, this is pronounced 'FO-ee-yurr'. A copy of Seven Days lies in a corner.", ["paper"]);
+let foyer = new Room("foyer", "You are in a foyer. Or maybe it's an antechamber. Or a vestibule. Or an entryway. Or an atrium. Or a narthex.But let's forget all that fancy flatlander vocabulary, and just call it a foyer. In Vermont, this is pronounced 'FO-ee-yurr'. A copy of Seven Days lies in a corner.", ["paper"], ['classroom', 'main street']);
 
-let classroom = new Room("classroom", "Welcome to the classroom. Say hello to Bob, your excellent instructor.", ["Bob"]);
+let classroom = new Room("classroom", "Welcome to the classroom. Say hello to Bob, your excellent instructor.", ["Bob"], ['foyer']);
 
-let pizzaShop = new Room("pizza shop", "This is Mr. Mikes. Feel free to buy a slice!", ["pizza"]);
+let pizzaShop = new Room("pizza shop", "This is Mr. Mikes. Feel free to buy a slice!", ["pizza"], ['main street']);
 
-let muddys = new Room("muddys", "Hello! Would you like some tea for Bob? I know how he gets without it!", ["tea"]);
+let muddys = new Room("muddys", "Hello! Would you like some tea for Bob? I know how he gets without it!", ["tea"], ['main street']);
 
 //This function checks whether you can move from one room to another. If you can prints the description of the room
 
@@ -61,13 +62,13 @@ lookupTable = {
 }
 
 //State machine controls which room you can go into 
-transitions = {
-  'classroom': {canChangeTo: ['foyer']},
-  'main street': { canChangeTo: ['foyer', 'pizza shop', 'muddys'] },
-  'foyer': { canChangeTo: ['classroom', 'main street'] },
-  'pizza shop': { canChangeTo: ['main street'] },
-  'muddys': { canChangeTo: ['main street'] }
-};
+// transitions = {
+//   'classroom': {canChangeTo: ['foyer']},
+//   'main street': { canChangeTo: ['foyer', 'pizza shop', 'muddys'] },
+//   'foyer': { canChangeTo: ['classroom', 'main street'] },
+//   'pizza shop': { canChangeTo: ['main street'] },
+//   'muddys': { canChangeTo: ['main street'] }
+// };
 
 currentRoom = mainStreet;
 
@@ -76,8 +77,12 @@ console.log(currentRoom)
 currentRoom.changeRoom('main street')
 console.log(currentRoom)
 console.log(currentRoom.changeRoom('foyer'))
+console.log(currentRoom)
 console.log(currentRoom.changeRoom('classroom'))
+console.log(currentRoom)
 console.log(currentRoom.changeRoom('muddys'))
+console.log(currentRoom)
+
 
 
 //Function that allows various inputs 
@@ -109,8 +114,8 @@ async function play() {
 }
 
 //These functions are called to begin the game. 
-//start();
-//play();
+// start();
+// play();
 
 
 
