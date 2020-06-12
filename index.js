@@ -19,6 +19,14 @@ let welcomeMessage = "182 Main street. You are standing on Main Street between C
 //Sign message
 let sign = "The sign says 'Welcome to Burlington Code Academy! Come on up to the third floor. If the door is locked, use the code 12345.'"
 
+//Bob object
+let bob = {
+  name: "bob",
+  status: ["gibberish"], 
+  inventory: ["nothing"],
+  messageNonGibberish: "Thanks for the tea! Would you like to take a class. "
+}
+
 //Player inventory
 let player = {
   status: ["full"],
@@ -70,7 +78,7 @@ let mainStreet = new Room("main street", "182 Main street. You are standing on M
 
 let foyer = new Room("foyer", "You are in a foyer. Or maybe it's an antechamber. Or a vestibule. Or an entryway. Or an atrium. Or a narthex.But let's forget all that fancy flatlander vocabulary, and just call it a foyer. In Vermont, this is pronounced 'FO-ee-yurr'. A copy of Seven Days lies in a corner, help yourself!", ["a paper"], "locked");
 
-let classroom = new Room("classroom", "Welcome to the classroom. Say hello to Bob, your excellent instructor.", ["Bob"], "unlocked");
+let classroom = new Room("classroom", "Welcome to the classroom. Say hello to Bob, your excellent instructor. He is talking nonsense and could clearly use some tea. You know he likes muddys, so you should probably head there.", ["Bob"], "unlocked");
 
 let pizzaShop = new Room("pizza shop", "This is Mr. Mikes. Feel free to buy a slice!", ["pizza"], "unlocked");
 
@@ -138,9 +146,20 @@ async function play() {
     } else if (input.includes('take') || input.includes('take sign') && currentRoom === mainStreet) {
       console.log(`That would be selfish. How will other students find their way?`)
 
+    }else if (input.includes("give tea")&& bob.status[0]==="gibberish"){
+      console.log(bob.messageNonGibberish);
+      bob.status.pop();
+      bob.status.push("alert");
+      player.inventory.pop("tea")
+      console.log("you are in if else")
+    
+
 //Movement statements
     } else if (input.includes("go to muddys") || input.includes("muddys")) {
-      console.log(currentRoom.changeRoom('muddys'))
+      player.inventory.pop();
+      player.inventory.push("tea");
+      console.log(currentRoom.changeRoom('muddys'));
+      console.log("Go give that tea to Bob, so he starts making sense.")
     }
 //If you want to go to foyer, you must enter a code
     else if (input.includes("foyer") && foyer.unlocked==="unlocked") {
@@ -164,7 +183,7 @@ async function play() {
     }else if (input.includes("i") || input.includes("inventory") || input.includes("take inventory")) {
       console.log("You are carrying: " + player.inventory)
     
-    }
+    } 
     else {
       console.log('Sorry. I don\'t how to ' + input + " Try again. ")
 
