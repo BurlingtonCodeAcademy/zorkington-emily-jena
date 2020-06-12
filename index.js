@@ -22,14 +22,14 @@ let sign = "The sign says 'Welcome to Burlington Code Academy! Come on up to the
 //Bob object
 let bob = {
   name: "bob",
-  status: ["gibberish"], 
+  status: ["gibberish"],
   inventory: ["nothing"],
   messageNonGibberish: "Thanks for the tea! Would you like to take a class. "
 }
 
 //Player inventory
 let player = {
-  status: ["full"],
+  status: "full",
   inventory: ["nothing"]
 }
 
@@ -42,10 +42,14 @@ door = {
     let code = await ask("What is your code?\n");
     if (code === "12345") {
       console.log("Success! The door opens. You enter the foyer and the door shuts behind you. ");
-      foyer.unlocked= "unlocked";
+      foyer.unlocked = "unlocked";
       console.log(currentRoom.changeRoom('foyer'));
       play();
-    } else {
+    } else if(code==="xyzzy"){
+      console.log("You have been set on fire. Cheaters never win!")
+      process.exit();
+    }
+    else {
       console.log("Bzzzzt! The door is still locked!");
       play();
     }
@@ -61,7 +65,7 @@ class Room {
     this.name = name;
     this.description = description;
     this.inventory = inventory;
-    this.unlocked= unlocked
+    this.unlocked = unlocked
   }
 
   changeRoom(nextState) {
@@ -117,73 +121,99 @@ function start() {
 async function play() {
   let input = "";
 
+
   //While the input is not exit, the game awaits input at every turn 
   while (input !== "exit") {
+  //If the player is hungry, your stomach grumbles
+    if (player.status === "hungry") {
+      console.log("Grumble, grumble, I sure am hungry!")
+    }
+  //Allows player to input
     input = await ask('>_ ');
 
     //Various actions that the player can take 
     if (input.includes('examine') || input.includes('read') || input.includes("read sign")) {
       console.log(sign);
 
-    } 
+    }
 
     else if (input.includes('enter code') || input.includes("key in") && currentRoom === mainStreet) {
       door.unlock();
 
+      //Takes the paper, pushes the paper into the player inventory. Displays paper message
     } else if (input.includes('take paper') || input.includes('take seven days') && currentRoom === foyer) {
       player.inventory.pop();
       player.inventory.push("paper");
       console.log("You pick up the paper and leaf through it looking for comics and ignoring the articles, just like everybody else.");
 
+      //Takes the paper out of the inventory
     } else if (input.includes('drop paper') || input.includes('drop seven days')) {
       player.inventory.pop('paper');
       currentRoom.inventory.push("paper");
-      player.inventory.push ("nothing");
+      player.inventory.push("nothing");
       console.log("Don't want this paper weighing me down!");
 
 
-
+      //You can try to take the sign when you are in Main street
     } else if (input.includes('take') || input.includes('take sign') && currentRoom === mainStreet) {
       console.log(`That would be selfish. How will other students find their way?`)
 
-    }else if (input.includes("give tea")&& bob.status[0]==="gibberish"){
+
+      //giving Bob tea
+    } else if (input.includes("give tea") && bob.status[0] === "gibberish" && currentRoom === classroom) {
       console.log(bob.messageNonGibberish);
       bob.status.pop();
       bob.status.push("alert");
-      player.inventory.pop("tea")
-      console.log("you are in if else")
-    
+      player.inventory.pop("tea");
 
-//Movement statements
+      //When Bob has had tea, you can attend a lecture   
+    } else if (input.includes("attend lecture") || (input.includes("sit down") && bob.status[0] === "alert" && currentRoom === classroom)) {
+      console.log("Without further ado, let me start sharing my screen!\n");
+      player.status = "hungry";
+     
+
+      //Enter muddys 
     } else if (input.includes("go to muddys") || input.includes("muddys")) {
       player.inventory.pop();
       player.inventory.push("tea");
       console.log(currentRoom.changeRoom('muddys'));
       console.log("Go give that tea to Bob, so he starts making sense.")
     }
-//If you want to go to foyer, you must enter a code
-    else if (input.includes("foyer") && foyer.unlocked==="unlocked") {
+    //If you want to go to foyer, you must enter a code, this keeps door unlocked or remainder of game
+    else if (input.includes("foyer") && foyer.unlocked === "unlocked") {
       console.log(currentRoom.changeRoom('foyer'));
-      
 
-    } else if (input.includes("foyer") && foyer.unlocked==="locked") {
+
+    } else if (input.includes("foyer") && foyer.unlocked === "locked") {
       door.unlock();
 
-
+      //Enter classroom
     } else if (input.includes("go to classroom") || input.includes("classroom")) {
       console.log(currentRoom.changeRoom('classroom'))
 
+    //Enter Main Street
     } else if (input.includes("go to main street") || input.includes("main street")) {
-    
       console.log(currentRoom.changeRoom('main street'))
 
+      //Enter pizza shop
     } else if (input.includes("go to pizza shop") || input.includes("pizza shop")) {
-      console.log(currentRoom.changeRoom('pizza shop'))
-
-    }else if (input.includes("i") || input.includes("inventory") || input.includes("take inventory")) {
-      console.log("You are carrying: " + player.inventory)
+      console.log(currentRoom.changeRoom('pizza shop'));
     
-    } 
+    //Allows you to eat pizza and become full
+    } else if (input.includes ("buy slice")|| input.includes("eat pizza")){
+      player.status ="full";
+      console.log("That slice was delicious! I feel much better.")
+
+      //Check inventory
+    } else if (input === "i" || input.includes("inventory") || input.includes("take inventory")) {
+      console.log("You are carrying: " + player.inventory)
+
+    }else if (input==="xyzzy"){
+      console.log("You have been set on fire! Cheaters never win!");
+      process.exit();
+    }
+
+    //Guard Clause to check random inputs
     else {
       console.log('Sorry. I don\'t how to ' + input + " Try again. ")
 
