@@ -1,5 +1,18 @@
 # Zorkington
 
+## Fork coded by: Jena Durell and Emily Reynolds
+
+- Utilized Objects, Arrays, Classes, States and Functions to create game modeled after Zork.
+
+- Explored alternate options for room transition method in transitionAltTest branch but ultimately decided to use State Machine in current version of game.
+
+- The following article, used in drop method, details slice and indexOf combination which proved fruitful:
+   https://stackoverflow.com/questions/9792927/javascript-array-search-and-remove-string
+
+   - By using the slice and indexOf combination, we allowed the player to carry more than one item at a time and still drop the intended item as requested by the player, which could be especially useful in further game development. 
+
+
+
 Instructions: http://bootcamp.burlingtoncodeacademy.com/projects/zorkington
 
 ![zork west of house](./zork-west-of-house.jpg)

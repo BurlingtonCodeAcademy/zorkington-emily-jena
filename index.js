@@ -24,7 +24,7 @@ let bob = {
   name: "bob",
   status: ["gibberish"],
   inventory: ["nothing"],
-  messageNonGibberish: "Thanks for the tea! Would you like to take a class. "
+  messageNonGibberish: "Thanks for the tea! Would you like to take a class? "
 };
 
 //Player inventory
